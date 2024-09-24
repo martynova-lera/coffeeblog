@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <h1>Coffee blog</h1>
+        <div style="display: flex; align-items: center;">
+            <label for="title"><h3>название напитка</h3></label>
+            <input type="text" id="title" name ="title" placeholder="американо">
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <label for="sort" name ="sort"><h3>сорт кофе</h3></label>
+            <select id="sort" name ="sort">
+                <option>арабика</option>
+                <option>робуста</option>
+                <option>либерика</option>
+            </select>
+        </div>
+        <div style="display: flex; align-items: center;">  
+            <label for="strong"><h3>крепость обжарки</h3></label>
+            
+            <input type="radio" id="strong" name="strong" value="light">
+            <label for="light">легкая</label>
+            <input type="radio" id="strong" name="strong" value="medium">
+            <label for="medium">средняя</label>
+            <input type="radio" id="strong" name="strong" value="strong">
+            <label for="strong">сильная</label>
+            
+        </div>
+        <div style="display: flex; align-items: center;">
+            <label for="image"><h3>изображение</h3></label>
+            <input type="text" id="image" name="image">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <lable for="cost"><h3>стоимость напитка</h3></lable>
+            <input type="text" id="cost"  name ="cost" placeholder="100">
+        </div>
+        <div style="display: flex; align-items: center;">
+            <lable for="description"><h3>описание</h3></lable>
+            <textarea id="description" name="description" placeholder="немного о напитке"></textarea>
+        </div>
+        <input type="submit" value="добавить напиток">
+    </form>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>изображение</th>
+                <th>название</th>
+                <th>сорт</th>
+                <th>крепость обжарки</th>
+                <th>стоимость</th>
+                <th>описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><br></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+<script> 
+    const f = document.forms[0]; 
+    let tr = document.getElementById("table"); 
+    let t = tr; 
+    f.addEventListener("submit", (e) => { 
+        e.preventDefault(); 
+        let body = {}; 
+        for (let i = 0; i < f.elements.length; i++) { 
+            let tag = f[i]; 
+            if (tag.name) { 
+                if (tag.type === "radio" && tag.checked) { 
+                    body[tag.name] = tag.value; 
+                } else if (tag.type !== "radio") { 
+                    body[tag.name] = tag.value; 
+                } 
+            } 
+        } 
+        console.log(body); 
+        let html = "<tr>"; 
+        html += `<td><img src="${body.image}" width="50" alt="${body.title}"></td>`; 
+        html += `<td>${body.title || ""}</td>`; 
+        html += `<td>${body.sort || ""}</td>`; 
+        html += `<td>${body.strong || ""}</td>`; 
+        html += `<td>${body.cost || ""}</td>`; 
+        html += `<td>${body.description || ""}</td>`; 
+        html += "</tr>" 
+        t.innerHTML += html; 
+    }) 
+</script>
+</html>
